@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<title>Online HTML Editor</title>
+<head>
+</head>
+<body>
+<div id="TextBox"></div>
+</body>
+<!-- Hope you like idea
+Catch me Out in Linkdin -> https://www.linkedin.com/in/david-iluz- -->
+<style>
+    input{
+        font-family: 'Garamond';
+        font-size: 25px;
+        border-radius:5px;
+        width: 40px;
+        height: 40px;
+    }
+
+    #Btns{
+        top:30px;
+        position: relative;
+        animation: moveBtns 2s;
+    }
+
+    #GH,#LD{
+        animation: rotateBtns 2.5s infinite;
+    }
+    #TextBox{
+        font-size: 30px;
+    }
+    span{
+        position: relative;
+        margin: 0;
+    }
+
+    @keyframes moveBtns {
+  0%   {     
+    left: -100px;
+
+}
+  100% {
+    left: 0;
+    }
+}
+
+@keyframes rotateBtns {
+  0%   {     
+    transform: rotate(0);
+}
+  100% {
+    transform: rotate(360deg);    }
+}
+
+
+    @keyframes animateLetter {
+  0%   {text-shadow: 0 0 6px #000;
+        color:transparent;
+        top:-10px ;}
+  100% {
+    text-shadow: 0 0 0px #000;
+        color:transparent;
+        top:0px ;
+
+    }
+}
+
+</style>
+
+<script>
+function delay(ms) {return new Promise(resolve => setTimeout(resolve, ms));};
+
+function createTextNodeWithAnimation(letter){
+    if(letter=='\n')
+    {
+        let textBox = document.getElementById("TextBox");
+        let textNode= document.createElement('div')
+    textBox.appendChild(textNode)
+        return
+    }
+
+    if(letter==' ')
+    {
+        let textBox = document.getElementById("TextBox");
+        let textNode= document.createElement('span')
+        textNode.textContent= 's'
+        textNode.id="space"
+        textNode.innerHTML+=`
+        <style>
+            #space{
+                color:transparent;
+                font-size:10px;
+                font-family: 'Garamond';
+        }
+        </style>
+    `
+    textBox.appendChild(textNode)
+        return
+    }
+    let textBox = document.getElementById("TextBox");
+    let textNode= document.createElement('span')
+    textNode.textContent= letter
+    textNode.id="textNode"
+    textNode.innerHTML+=`
+        <style>
+            #textNode{
+                animation: animateLetter 1.2s 1;
+                margin-right: -6px;
+                font-family: 'Garamond  ';
+        }
+        </style>
+    `
+    textBox.appendChild(textNode)
+}
+
+async function WriteString(string){
+    let textBox = document.getElementById("TextBox");
+    for(i=0;i<string.length;i++){
+        await delay(i*100/string.length)    
+     createTextNodeWithAnimation(string[i])
+    }
+}
+
+async function main(){
+    let string ="This is some cool css animation writing \n \nCredit to DavidIluz"
+    await WriteString(string)
+    let textBox = document.getElementById("TextBox");
+    let textNode= document.createElement('div')
+    textBox.appendChild(textNode)
+    textNode= document.createElement('div')
+    textNode.innerHTML=`
+    <div id="Btns">
+<input id="LD" type="image" src="https://cdn-icons-png.flaticon.com/512/174/174857.png" onclick="location.href = 'https://www.linkedin.com/in/david-iluz-'" alt="MyLinkdin">  
+<input id="GH" type="image" src="https://cdn-icons-png.flaticon.com/512/5968/5968866.png" onclick="location.href = 'https://github.com/Davidiluz-IL'" alt="MyLinkdin">  
+</div>`
+    textBox.appendChild(textNode)
+}
+main();
+</script>
+</html>
